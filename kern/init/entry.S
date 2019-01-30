@@ -38,7 +38,7 @@ start:
 
 	/* jump to the C code */
 	push	multiboot_ptr
-	call	kern_init
+	/* call	kern_init */
 
 	/* should not be here */
 spin:
