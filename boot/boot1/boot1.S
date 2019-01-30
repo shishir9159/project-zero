@@ -1,5 +1,5 @@
 /*******************************************************************/
-/* Your Name | Student id:  | CSE 4502 Operating Systems Lab */
+/* Your Name | 160041014:  | CSE 4502 Operating Systems Lab */
 /*******************************************************************/
 /* boot1
  *
@@ -45,13 +45,14 @@
      *  Hint: should be the same as boot0.
      */
 	 
-	 /* add your code here - student id */
+	 /* add your code here - 160041014 */
 	 
 	 
+	.set BOOT0, 0x7c00		# load address
+	.set BOOT1, 0x7e00	# start address of boot1
 	 
 	 
-	 
-	 /* coded by student id */
+	 /* coded by 160041014 */
 /***********************************************************************************************************************/
 
 
@@ -78,13 +79,14 @@ start:
 	 * 	Hint: see the cli/sti and cld/std instructions.
      */
 	 
-	 /* add your code here - student id */
+	 /* add your code here - 160041014 */
 	 	 
 	 	 
+	cli
+	cld
 	 	 
 	 	 
-	 	 
-	 /* coded by student id */
+	 /* coded by 160041014 */
 /***********************************************************************************************************************/
 
 	/* enable A20
@@ -113,13 +115,15 @@ seta20.2:
      *  Hint 3: putstr needs a reference to the string loaded into the %si register.
      */
 
-	 /* add your code here - student id */
+	 /* add your code here - 160041014 */
 	 
 	 
+ /* set_video_mode.2: */
+		movw	$STARTUP_MSG, %si
+		call	putstr
 	 
 	 
-	 
-	 /* coded by student id */ 
+	 /* coded by 160041014 */ 
 	 
 /***********************************************************************************************************************/
 	/*
@@ -172,13 +176,13 @@ switch_prot:
      *  Hint 2: Use the GDT descriptor (a wrapper for the GDT, also defined at the end of this file).
      */
 	 
-	 /* add your code here - student id */
+	 /* add your code here - 160041014 */
 	 
 	 
+	lgdt	gdtdesc
+		
 	 
-	 
-	 
-	 /* coded by student id */ 
+	 /* coded by 160041014 */ 
 /***********************************************************************************************************************/
 
 /***********************************************************************************************************************/
@@ -201,13 +205,20 @@ switch_prot:
      *      - Even though we arent jumping anywhere significant, the ljmp excutes the CPU state switch.
      */
 
-	 /* add your code here - student id */
+	 /* add your code here - 160041014 */
 	 	 
 	 	 
+
+	movl	%cr0, %eax
+	movl	%eax, %cr0
+	/*
+	 * switch to the protected mode
+	 */
+	ljmp	$PROT_MODE_CSEG, $protcseg
+
+	.code32
 	 	 
-	 	 
-	 	 
-	 /* coded by student id */
+	 /* coded by 160041014 */
 	 
 /***********************************************************************************************************************/	 
 	 
@@ -221,13 +232,19 @@ protcseg:
      *  - Set the %ds, %es, %fs, %gs, and %ss segmentation registers to the PROT_MODE_DSEG selector.
      */
 
-	/* add your code here - student id */
+	/* add your code here - 160041014 */
+	 
+protcseg:
+	movw	$PROT_MODE_DSEG, %ax
+	movw	%ax, %ds
+	movw	%ax, %es
+	movw	%ax, %fs
+	movw	%ax, %gs
+	movw	%ax, %ss	 
 	 
 	 
 	 
-	 
-	 
-	 /* coded by student id */	 	 
+	 /* coded by 160041014 */	 	 
 	 
 /***********************************************************************************************************************/
 
@@ -241,13 +258,17 @@ protcseg:
      * Hint 4: After pushing all the arguments, call boot1main
 	 */
 
-	/* add your code here - student id */
+	/* add your code here - 160041014 */
 		 
 		 
+	pushl	$smap
+	pushl	$BOOT0
+	movl	(BOOT0-4), %eax
+	pushl	%eax
+	call	boot1main 
 		 
 		 
-		 
-	 /* coded by student id */
+	 /* coded by 160041014 */
 
 /***********************************************************************************************************************/
 

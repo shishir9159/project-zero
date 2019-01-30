@@ -45,8 +45,8 @@
 	 */
 	 
 	 /* add your code here - student id */
-	 .set BOOT0, 0x7c00
-	 .set BOOT1, 0x7e00
+	 .set BOOT0, 0x7c00		# load address
+	 .set BOOT1, 0x7e00		# start address of boot1
 	 
 	 			
 	 /* coded by student id */
@@ -113,7 +113,9 @@ start:
 	 
 	 /* add your code here - student id */
 	 
-	 
+	xorl	%eax, %eax
+	movb	%dl, %al
+	movl	%eax, BOOT0 - 4
 	 
 	 /* coded by student id */
 /***********************************************************************************************************************/	 
@@ -134,7 +136,8 @@ start:
 	 */
 
 	 /* add your code here - student id */
-	 	 
+	movw  $(BOOT0 - 4), %bp
+	movw  $(BOOT0 - 4), %sp 	 
 	 	 
 	 	 
 	 /* coded by student id */
@@ -177,7 +180,22 @@ load_boot1:
 	 */
 
 	 /* add your code here - student id */
-	 	 
+	pushl	$0x0			# set the start
+	pushl	$0x1			# LBA address
+	pushw	%es			# set the buffer address
+	pushw	$BOOT1			# to 0x7e00
+	pushw	$62			# set the number of sectors to be read
+	pushw	$0x10			# set the size of DAP
+	movw	%sp, %si		# set the DAP address
+	movw	$0x4200, %ax		# ah = 0x42, al = 0x00
+	int	$0x13			# read sectors
+	jc	load_fail		# encouter errors
+
+	jmp	BOOT1			# jump to boot1
+
+load_fail:
+	movw	$LOAD_FAIL_MSG, %si
+	call	putstr 	 
 	 	 
 	 	 
 	 /* coded by student id */

@@ -29,7 +29,7 @@ void boot1main (uint32_t dev, mbr_t *mbr, bios_smap_t *smap)
 	/* Roll sets the row we will print on for the VGA, this function is defined in the provided, boot1lib files. */
 	roll(3);
 	/* Since we can't use the standard C library yet, we have to directly print to the VGA to get printed output.*/
-	putline("Start boot1 main ... Your name here...");
+	putline("Start boot1 main ... MD. Fakhruddin Gazzali...");
 
 /***********************************************************************************************************************/
 	/* TASK 1:
@@ -43,16 +43,28 @@ void boot1main (uint32_t dev, mbr_t *mbr, bios_smap_t *smap)
 	 * Hint 5: the Logical block address (LBA) of the bootable parition is stored in the first_lba field of the partition table entry.
 	 */
 
-	/* add your code here - student id */
+	/* add your code here - 160041014 */
+
+
+	int i;
+	uint32_t bootable_lba = 0;
+	for (i = 0; i < 4; i++)
+	{
+		if ( mbr->partition[i].bootable == BOOTABLE_PARTITION)
+		{
+			bootable_lba = mbr->partition[i].first_lba;
+			break;
+		}
+	}
+
+	if (i == 4)
+		panic ("Cannot find bootable partition!");
 
 
 
 
 
-
-
-
-	/* coded by student id */
+	/* coded by 160041014 */
 /***********************************************************************************************************************/
 
 	/* parse the memory map we extracted from the bios on the assembly side */
@@ -65,16 +77,21 @@ void boot1main (uint32_t dev, mbr_t *mbr, bios_smap_t *smap)
 	 */
 
 
-	/* add your code here - student id */
+	/* add your code here - 160041014 */
+
+	putline ("Load kernel ...\n");
+	uint32_t entry = load_kernel(bootable_lba);
+
+	putline ("Start kernel ...\n");
+
+	exec_kernel (entry, &mboot_info);
 
 
 
 
 
 
-
-
-	/* coded by student id */
+	/* coded by 160041014 */
 
 /***********************************************************************************************************************/
 
