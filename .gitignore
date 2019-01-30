@@ -2,3 +2,6 @@
 *.d
 *.elf
 *.img
+boot0
+boot1
+kernel
