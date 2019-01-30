@@ -33,8 +33,8 @@ start:
 	popfl
 
 	/* prepare the kernel stack  */
-	movl	$0x0,%ebp
-	movl	$(bsp_kstack+4096),%esp
+	/* movl	$0x0,%ebp 
+	movl	$(bsp_kstack+4096),%esp */
 
 	/* jump to the C code */
 	push	multiboot_ptr
