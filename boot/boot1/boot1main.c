@@ -29,7 +29,7 @@ void boot1main (uint32_t dev, mbr_t *mbr, bios_smap_t *smap)
 	/* Roll sets the row we will print on for the VGA, this function is defined in the provided, boot1lib files. */
 	roll(3);
 	/* Since we can't use the standard C library yet, we have to directly print to the VGA to get printed output.*/
-	putline("Start boot1 main ... MD. Fakhruddin Gazzali...");
+	putline("Start boot1 main ... Ahmed Sadman Muhib ...");
 
 /***********************************************************************************************************************/
 	/* TASK 1:
