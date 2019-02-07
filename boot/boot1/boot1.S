@@ -210,13 +210,12 @@ switch_prot:
 	 	 
 
 	movl	%cr0, %eax
+	orl	$0x1, %eax
 	movl	%eax, %cr0
 	/*
 	 * switch to the protected mode
 	 */
 	ljmp	$PROT_MODE_CSEG, $protcseg
-
-	.code32
 	 	 
 	 /* coded by 160041014 */
 	 
@@ -224,7 +223,6 @@ switch_prot:
 	 
     /* assemble the following instructions in 32-bit mode */
 	.code32
-protcseg:
     /* We are now in protected mode! */
 
 /***********************************************************************************************************************/
