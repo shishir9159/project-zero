@@ -1,0 +1,17 @@
+00000080 a PR_BOOTABLE
+00007c00 a BOOT0
+00007c00 T start
+00007c19 t set_video_mode
+00007c24 t load_boot1
+00007c3e t load_fail
+00007c44 t spin
+00007c45 t putstr
+00007c48 t putstr.1
+00007c51 t putstr.2
+00007c53 t STARTUP_MSG
+00007c65 t LOAD_FAIL_MSG
+00007c83 T __bss_start
+00007c83 T _edata
+00007c84 T _end
+00007dbe a PR_TABLE
+00007e00 a BOOT1
