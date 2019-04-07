@@ -7,6 +7,8 @@
 #define VM_USERLO_PI  (VM_USERLO / PAGESIZE)   // VM_USERLO page index
 #define VM_USERHI_PI  (VM_USERHI / PAGESIZE)   // VM_USERHI page index
 
+//set a next pointer to remember the last allocated page index
+static unsigned int next = VM_USERLO_PI;
 
 /** TASK 1:
   * Allocation of a physical page.

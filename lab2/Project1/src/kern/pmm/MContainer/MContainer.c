@@ -27,7 +27,8 @@ struct SContainer {
 };
 
 // We will support up to NUM_IDS processes
-
+// mCertiKOS supports up to NUM_IDS processes
+static struct SContainer CONTAINER[NUM_IDS];
 
 /**
   * Initializes the container data for the root process (the one with index 0).
